@@ -71,6 +71,7 @@ public class QQProcessor {
             return;
         }
 
+
         String msg = request.getParameter("msg");
         if (StringUtils.isBlank(msg)) {
             LOGGER.warn("Empty msg body");
@@ -79,8 +80,15 @@ public class QQProcessor {
             return;
         }
 
-        LOGGER.info("Push QQ groups [msg=" + msg + "]");
-        qqService.sendToPushQQGroups(msg);
+
+        String discussId = request.getParameter("discuss");
+        if (StringUtils.isBlank(discussId)) {
+            LOGGER.info("Push QQ groups [msg=" + msg + "]");
+            qqService.sendToPushQQGroups(msg);
+        } else {
+            LOGGER.info("Push QQ discuss [msg=" + msg + "]");
+            qqService.sendMessageToDiscuss(Long.parseLong(discussId), msg);
+        }
 
         final JSONObject ret = new JSONObject();
         context.renderJSON(ret);

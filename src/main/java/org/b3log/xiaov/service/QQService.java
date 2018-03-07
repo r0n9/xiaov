@@ -369,7 +369,7 @@ public class QQService {
         xiaoV.sendMessageToGroup(groupId, msg);
     }
 
-    private void sendMessageToDiscuss(final Long discussId, final String msg) {
+    public void sendMessageToDiscuss(final Long discussId, final String msg) {
         Discuss discuss = QQ_DISCUSSES.get(discussId);
         if (null == discuss) {
             reloadDiscusses();
